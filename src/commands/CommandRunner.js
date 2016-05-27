@@ -1,12 +1,11 @@
 'use es6';
 
-import program from "commander";
-import FoodaClient from '../clients/FoodaClient';
-import MenuTable from '../tables/MenuTable';
+import program from 'commander';
+import MenuCommand from './MenuCommand';
 
 export default class CommandRunner {
   constructor() {
-    this.client = new FoodaClient();
+    this.menuCommand = new MenuCommand()
   }
 
   run() {
@@ -14,7 +13,7 @@ export default class CommandRunner {
 
     program.command("menu [location]")
             .description("get fooda data")
-            .action(location => this.client.fetch(location).then(menus => menus.map(menu => console.log(MenuTable.create(menu)))));
+            .action(location => this.menuCommand.run(location))
 
     program.parse(process.argv);
   }

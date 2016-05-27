@@ -7,6 +7,7 @@ import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
 export default class FoodaClient {
   constructor() {
     this.baseUrl = 'https://app.fooda.com';
+    this.parser = new FoodaHtmlParser();
   }
 
   generateUrl(location) {
@@ -16,7 +17,7 @@ export default class FoodaClient {
   fetch(location) {
     const url = this.generateUrl(location);
     return rp( { uri: url } )
-      .then(html => FoodaHtmlParser.parse(html))
+      .then(html => this.parser.parse(html))
       .catch(err => console.log(err));
   }
 }
