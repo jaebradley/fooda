@@ -11,7 +11,6 @@ export default class FoodaHtmlParser {
     const vendors = FoodaHtmlParser.generateVendors(html);
     const menus = [];
     vendors.map(vendor => menus.push(FoodaHtmlParser.generateMenu(html, vendor)));
-    console.log(menus);
     return menus;
   }
 
