@@ -6,13 +6,14 @@ import FoodaClient from '../src/clients/FoodaClient';
 import Menu from '../src/data/Menu';
 import Item from '../src/data/Item';
 import MenuType from '../src/data/MenuType';
+import FoodaHtmlParser from '../src/parsers/FoodaHtmlParser';
 
 describe('Fooda client', function() {
   const client = new FoodaClient();
 
   it('tests constructor', function() {
     expect(client.baseUrl).to.equal('https://app.fooda.com');
-    expect(client.parser).to.be.a('foodahtmlparser');
+    expect(client.parser).to.be.an.instanceOf(FoodaHtmlParser);
   });
 
   it('tests url generator', function() {
