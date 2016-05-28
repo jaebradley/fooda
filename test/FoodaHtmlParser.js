@@ -130,6 +130,26 @@ describe('Fooda Html Parser', function() {
     }),
   ];
 
+  const expectedCurryHouseMenuParameters = {vendor: 'Curry House'};
+  expectedCurryHouseMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
+  expectedCurryHouseMenuParameters[MenuType.DESSERTS] = curryHouseDesserts;
+  expectedCurryHouseMenuParameters[MenuType.ENTREES] = curryHouseEntrees;
+  expectedCurryHouseMenuParameters[MenuType.SALADS] = [];
+  expectedCurryHouseMenuParameters[MenuType.SIDES] = curryHouseSides;
+  expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT] = [];
+  const expectedCurryHouseMenu = new Menu(expectedCurryHouseMenuParameters);
+
+  const expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.'};
+  expectedMexicaliMenuParameters[MenuType.COMBINATIONS] = [];
+  expectedMexicaliMenuParameters[MenuType.DESSERTS] = mexicaliDesserts;
+  expectedMexicaliMenuParameters[MenuType.ENTREES] = mexicaliEntrees;
+  expectedMexicaliMenuParameters[MenuType.SALADS] = mexicaliSalads;
+  expectedMexicaliMenuParameters[MenuType.SIDES] = [];
+  expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT] = mexicaliSidesAndDessert;
+  const expectedMexicaliMenu = new Menu(expectedMexicaliMenuParameters);
+
+  const expectedMenus = [expectedCurryHouseMenu, expectedMexicaliMenu];
+
   it('test constructor', function() {
     expect(parser.categoriesMap[MenuType.COMBINATIONS]).to.equal('Combinations');
     expect(parser.categoriesMap[MenuType.DESSERTS]).to.equal('Desserts');
@@ -164,14 +184,10 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test generate menu', function() {
-    const expectedMenuParameters = {vendor: 'Curry House'};
-    expectedMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
-    expectedMenuParameters[MenuType.DESSERTS] = curryHouseDesserts;
-    expectedMenuParameters[MenuType.ENTREES] = curryHouseEntrees;
-    expectedMenuParameters[MenuType.SALADS] = [];
-    expectedMenuParameters[MenuType.SIDES] = curryHouseSides;
-    expectedMenuParameters[MenuType.SIDES_AND_DESSERT] = [];
-    const expectedMenu = new Menu(expectedMenuParameters);
-    expect(parser.generateMenu($, 'Curry House')).to.eql(expectedMenu);
+    expect(parser.generateMenu($, 'Curry House')).to.eql(expectedCurryHouseMenu);
+  });
+
+  it('test parse', function() {
+    expect(parser.parse(sampleHtml)).to.eql(expectedMenus);
   });
 })
