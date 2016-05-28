@@ -12,6 +12,7 @@ describe('Fooda Html Parser', function() {
   const parser = new FoodaHtmlParser();
   const sampleHtml = fs.readFileSync(path.join(__dirname, './html/fooda.html'));
   const $ = cheerio.load(sampleHtml);
+  const testLookupKey = 'div[class=item--no-photo][data-vendor_name="Curry House"][data-category="Entrees"] div[class=item__name]';
 
   it('test constructor', function() {
     expect(parser.categoriesMap[MenuType.COMBINATIONS]).to.equal('Combinations');
@@ -29,5 +30,15 @@ describe('Fooda Html Parser', function() {
     expect(vendors[1]).to.equal('MexiCali Burrito Co.');
   });
 
-  
+  it('test get text values', function() {
+    const expectedEntrees = [
+      'Saag Paneer (V)',
+      'Chana Masala (V)',
+      'Vegetable Korma (V)',
+      'Chicken Tikka Masala',
+      "Chef's Special Entrée",
+    ];
+    const entrees = parser.getTextValues($, testLookupKey);
+    expect(entrees).to.eql(expectedEntrees);
+  });
 })
