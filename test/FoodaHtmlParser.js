@@ -7,6 +7,8 @@ import path from 'path';
 
 import FoodaHtmlParser from '../src/parsers/FoodaHtmlParser';
 import MenuType from '../src/data/MenuType';
+import Item from '../src/data/Item';
+import Menu from '../src/data/Menu';
 
 describe('Fooda Html Parser', function() {
   const parser = new FoodaHtmlParser();
@@ -40,5 +42,37 @@ describe('Fooda Html Parser', function() {
     ];
     const entrees = parser.getTextValues($, testLookupKey);
     expect(entrees).to.eql(expectedEntrees);
+  });
+
+  it('test generate items', function() {
+    const expectedItems = [
+      new Item({
+        name: 'Saag Paneer (V)',
+        price: '$7.48',
+        description: 'Spinach and homemade cottage cheese, prepared with a touch of onions and fresh tomatoes; served with long-grain basmati rice',
+      }),
+      new Item({
+        name: 'Chana Masala (V)',
+        price: '$7.48',
+        description: 'Garbanzo beans sautéed with onions, fresh tomatoes, and spices; served with long-grain basmati rice',
+      }),
+      new Item({
+        name: 'Vegetable Korma (V)',
+        price: '$7.48',
+        description: 'Garden vegetables in a creamy sauce with cashew nuts and raisins; served with long-grain basmati rice',
+      }),
+      new Item({
+        name: 'Chicken Tikka Masala',
+        price: '$8.41',
+        description: 'Roasted boneless chicken cooked in a creamy tomato sauce with exotic spices served with long-grain basmati rice',
+      }),
+      new Item({
+        name: "Chef's Special Entrée",
+        price: '$8.41',
+        description: 'Rotating selection of classic Indian specialties served with long-grain basmati rice',
+      }),
+    ];
+    const items = parser.generateItems($, 'Curry House', 'Entrees');
+    expect(items).to.eql(expectedItems);
   });
 })
