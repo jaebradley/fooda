@@ -6,20 +6,8 @@ import Menu from '../src/data/Menu';
 import Item from '../src/data/Item';
 import MenuType from '../src/data/MenuType';
 
-describe('Item data model object', function() {
-  it('creates default item', function() {
-    const defaultMenu = new Menu();
+describe('Menu data model object', function() {
 
-    expect(defaultMenu.vendor).to.equal('');
-    expect(defaultMenu.get(MenuType.COMBINATIONS)).to.eql([]);
-    expect(defaultMenu.get(MenuType.DESSERTS)).to.eql([]);
-    expect(defaultMenu.get(MenuType.ENTREES)).to.eql([]);
-    expect(defaultMenu.get(MenuType.SALADS)).to.eql([]);
-    expect(defaultMenu.get(MenuType.SIDES)).to.eql([]);
-    expect(defaultMenu.get(MenuType.SIDES_AND_DESSERT)).to.eql([]);
-  });
-
-  it('creates custom item', function() {
     const customName = 'jae';
     const customPrice = 'bae';
     const customDescription = 'bradley';
@@ -36,6 +24,21 @@ describe('Item data model object', function() {
     const customSalads = [customItem, customItem, customItem, customItem];
     const customSides = [customItem, customItem, customItem, customItem, customItem];;
     const customSidesAndDessert = [customItem, customItem, customItem, customItem, customItem];
+
+  it('creates default menu', function() {
+    const defaultMenu = new Menu();
+
+    expect(defaultMenu.vendor).to.equal('');
+    expect(defaultMenu.get(MenuType.COMBINATIONS)).to.eql([]);
+    expect(defaultMenu.get(MenuType.DESSERTS)).to.eql([]);
+    expect(defaultMenu.get(MenuType.ENTREES)).to.eql([]);
+    expect(defaultMenu.get(MenuType.SALADS)).to.eql([]);
+    expect(defaultMenu.get(MenuType.SIDES)).to.eql([]);
+    expect(defaultMenu.get(MenuType.SIDES_AND_DESSERT)).to.eql([]);
+  });
+
+  it('creates custom menu', function() {
+    
     const customMenuProperties = { vendor: customVendorName };
     customMenuProperties[MenuType.COMBINATIONS] = customCombinations;
     customMenuProperties[MenuType.DESSERTS] = customDesserts;
@@ -43,6 +46,7 @@ describe('Item data model object', function() {
     customMenuProperties[MenuType.SALADS] = customSalads;
     customMenuProperties[MenuType.SIDES] = customSides;
     customMenuProperties[MenuType.SIDES_AND_DESSERT] = customSidesAndDessert;
+
     const customMenu = new Menu(customMenuProperties);
     expect(customMenu.vendor).to.equal(customVendorName);
     expect(customMenu.get(MenuType.COMBINATIONS)).to.eql(customCombinations);
