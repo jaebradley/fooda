@@ -6,6 +6,7 @@ const defaults = {
   name: '',
   price: '',
   description: '',
+  labels: [],
 }
 
 export default class Item extends Record(defaults) {};

@@ -16,6 +16,15 @@ export default class FoodaHtmlParser {
     this.categoriesMap[MenuType.SALADS] = 'Salads';
     this.categoriesMap[MenuType.SIDES] = 'Sides';
     this.categoriesMap[MenuType.SIDES_AND_DESSERT] = 'Sides & Dessert';
+    this.baseHtmlParseValueTemplate = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]`;
+    this.itemNameHtmlElement = 'div[class=item__name]';
+    this.itemPriceHtmlElement = 'div[class=item__price]';
+    this.descriptionHtmlElement = 'div[class=item__desc__text]';
+    this.labelHtmlElement = 'div[class=item__labels]';
+    this.nameParseValue= `${this.baseHtmlParseValueTemplate} ${this.itemNameHtmlElement}`;
+    this.priceParseValue = `${this.baseHtmlParseValueTemplate} ${this.itemPriceHtmlElement}`;
+    this.descriptionParseValue = `${this.baseHtmlParseValueTemplate} ${this.descriptionHtmlElement}`;
+    this.labelParseValue = `${this.baseHtmlParseValueTemplate} ${this.labelHtmlElement}`;
   }
 
 
@@ -49,18 +58,17 @@ export default class FoodaHtmlParser {
   }
 
   generateItems($, vendor, category) {
-    const nameParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"] div[class=item__name]`;
-    const priceParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]  div[class=item__price]`;
-    const descriptionParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]  div[class=item__desc__text]`;
-    const names = this.getTextValues($, nameParseValue);
-    const prices = this.getTextValues($, priceParseValue);
-    const descriptions = this.getTextValues($, descriptionParseValue);
+    const names = this.getTextValues($, this.nameParseValue);
+    const prices = this.getTextValues($, this.priceParseValue);
+    const descriptions = this.getTextValues($, this.descriptionParseValue);
+    const labels = this.getTextValues($, this.labelParseValue);
     const items = [];
     for (let index = 0; index < names.length; index++) {
       items.push(new Item({
         name: names[index],
         price: prices[index],
         description: descriptions[index],
+        labels: labels[index],
       }));
     }
     return items;
