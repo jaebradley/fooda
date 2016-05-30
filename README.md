@@ -10,7 +10,7 @@
 
 #### Commands
 * To see what's cooking at a specific location, type `fooda menu {location}`.
-* For example, `fooda menu davenport` returns the menu for the Davenport building, today.
+* For example, `fooda menu davenport` returns the menu for [the Davenport building](https://goo.gl/maps/3aeyPyh4RD42), today.
 * Currently, the only supported location options are `davenport` and `hubspot` (I know, I know). I get to why a bit later.
 
 ### Moar Background Information
