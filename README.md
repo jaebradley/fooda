@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/jaebradley/fooda.svg?branch=master)](https://travis-ci.org/jaebradley/fooda)
+[![Coverage Status](https://coveralls.io/repos/github/jaebradley/fooda/badge.svg?branch=master)](https://coveralls.io/github/jaebradley/fooda?branch=master)
+
 # Fooda Command Line Interface (CLI)
 
 ### Where my food(a) at?
