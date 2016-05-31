@@ -148,19 +148,21 @@ describe('Fooda Html Parser', function() {
     }),
   ];
 
-  const expectedCurryHouseMenuParameters = {vendor: 'Curry House'};
+  const expectedCurryHouseMenuParameters = {vendor: 'Curry House', 'date': 'popup today, May 27'};
   expectedCurryHouseMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
   expectedCurryHouseMenuParameters[MenuType.DESSERTS] = curryHouseDesserts;
   expectedCurryHouseMenuParameters[MenuType.ENTREES] = curryHouseEntrees;
+  expectedCurryHouseMenuParameters[MenuType.SANDWICHES] = [];
   expectedCurryHouseMenuParameters[MenuType.SALADS] = [];
   expectedCurryHouseMenuParameters[MenuType.SIDES] = curryHouseSides;
   expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT] = [];
   const expectedCurryHouseMenu = new Menu(expectedCurryHouseMenuParameters);
 
-  const expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.'};
+  const expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.' , 'date': 'popup today, May 27'};
   expectedMexicaliMenuParameters[MenuType.COMBINATIONS] = [];
   expectedMexicaliMenuParameters[MenuType.DESSERTS] = mexicaliDesserts;
   expectedMexicaliMenuParameters[MenuType.ENTREES] = mexicaliEntrees;
+  expectedMexicaliMenuParameters[MenuType.SANDWICHES] = [];
   expectedMexicaliMenuParameters[MenuType.SALADS] = mexicaliSalads;
   expectedMexicaliMenuParameters[MenuType.SIDES] = [];
   expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT] = mexicaliSidesAndDessert;

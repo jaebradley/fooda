@@ -13,6 +13,7 @@ export default class FoodaHtmlParser {
     this.categoriesMap[MenuType.COMBINATIONS] = 'Combinations';
     this.categoriesMap[MenuType.DESSERTS] = 'Desserts';
     this.categoriesMap[MenuType.ENTREES] = 'Entrees';
+    this.categoriesMap[MenuType.SANDWICHES] = 'Sandwiches';
     this.categoriesMap[MenuType.SALADS] = 'Salads';
     this.categoriesMap[MenuType.SIDES] = 'Sides';
     this.categoriesMap[MenuType.SIDES_AND_DESSERT] = 'Sides & Dessert';
@@ -52,6 +53,10 @@ export default class FoodaHtmlParser {
     return values;
   }
 
+  generateDate($) {
+    return $('div[class=secondary-bar__label]').text().trim();
+  }
+
   generateVendors($) {
     const vendors = [];
     $('div[class=restaurant-banner]').map((index, element) => (vendors.push(element.attribs['data-vendor_name'])));
@@ -59,7 +64,7 @@ export default class FoodaHtmlParser {
   }
 
   generateMenu($, vendor) {
-    const menu = {vendor: vendor};
+    const menu = {vendor: vendor, date: this.generateDate($)};
     Object.keys(this.categoriesMap).map(category => (menu[category] = (this.generateItems($, vendor, this.categoriesMap[category]))));
     return new Menu(menu);
   }
