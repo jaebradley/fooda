@@ -21,26 +21,31 @@ describe('Fooda Html Parser', function() {
       name: 'Saag Paneer (V)',
       price: '$7.48',
       description: 'Spinach and homemade cottage cheese, prepared with a touch of onions and fresh tomatoes; served with long-grain basmati rice',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
     new Item({
       name: 'Chana Masala (V)',
       price: '$7.48',
       description: 'Garbanzo beans sautéed with onions, fresh tomatoes, and spices; served with long-grain basmati rice',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
     new Item({
       name: 'Vegetable Korma (V)',
       price: '$7.48',
       description: 'Garden vegetables in a creamy sauce with cashew nuts and raisins; served with long-grain basmati rice',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
     new Item({
       name: 'Chicken Tikka Masala',
       price: '$8.41',
       description: 'Roasted boneless chicken cooked in a creamy tomato sauce with exotic spices served with long-grain basmati rice',
+      labels: ['Gluten-Free'],
     }),
     new Item({
       name: "Chef's Special Entrée",
       price: '$8.41',
       description: 'Rotating selection of classic Indian specialties served with long-grain basmati rice',
+      labels: ['Gluten-Free'],
     }),
   ];
 
@@ -49,11 +54,13 @@ describe('Fooda Html Parser', function() {
       name: 'Vegetarian Combo',
       price: '$8.41',
       description: 'Your choice of any two vegetarian entrees, served with long-grain basmati rice',
+      labels: ['Vegetarian'],
     }),
     new Item({
       name: 'Curry House Combo',
       price: '$9.35',
       description: 'Your choice of any two entrées one meat one vegetarian, served with long-grain basmati rice',
+      labels: [],
     }),
   ];
 
@@ -62,16 +69,19 @@ describe('Fooda Html Parser', function() {
       name: 'Basmati Rice',
       price: '$1.87',
       description: 'Traditional, long-grain white rice',
+      labels: ['Gluten-Free'],
     }),
     new Item({
       name: 'Naan',
       price: '$1.87',
       description: 'Indian bread made fresh daily in our tandoor oven',
+      labels: [],
     }),
     new Item({
       name: 'Vegetable Samosa (1)',
       price: '$1.87',
       description: 'Crispy turnover filled with seasoned potatoes and green peas',
+      labels: [],
     })
   ];
 
@@ -80,6 +90,7 @@ describe('Fooda Html Parser', function() {
       name: 'Kheer',
       price: '$1.87',
       description: 'Homemade rice pudding flavored with cardamom, served chilled',
+      labels: [],
     }),
   ];
 
@@ -88,11 +99,13 @@ describe('Fooda Html Parser', function() {
       name: 'Burrito Bowl',
       price: '$8.41',
       description: 'Black beans, rice, choice of meat or veggie, sour cream, pico de gallo tomato salsa, and shredded jack cheese with your choice of protein:Spicy rojo chicken- grilled with a habanero red chile sauce, Pulled Chile Colorado Pork, Seasonal veggies (GF',
+      labels: [],
     }),
     new Item({
       name: 'Add guacamole or extra protein $1.87',
       price: '',
-      description: ''
+      description: '',
+      labels: [],
     }),
   ];
 
@@ -101,6 +114,7 @@ describe('Fooda Html Parser', function() {
       name: 'Taco Salad',
       price: '$8.41',
       description: 'Romaine lettuce, corn tortilla chips, choice of meat or veggie, sour cream, pico de gallo tomato salsa, and shredded jack cheese',
+      labels: ['Gluten-Free'],
     }),
   ];
 
@@ -109,16 +123,19 @@ describe('Fooda Html Parser', function() {
       name: 'Chips',
       price: '$1.87',
       description: 'Homemade corn tortilla chips',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
     new Item({
       name: 'Chips and Guacamole',
       price: '$3.74',
       description: 'Homemade corn tortilla chips served with handmade guacamole',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
     new Item({
       name: 'Chips and Salsa',
       price: '$3.27',
       description: 'Homemade corn tortilla chips served with a chunky tomato salsa',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
   ];
 
@@ -127,6 +144,7 @@ describe('Fooda Html Parser', function() {
       name: 'Stoneground Taza Chocolate Disk',
       price: '$4.67',
       description: 'Organic dark Mexican style chocolate discs bursting with bright tastes and bold textures',
+      labels: ['Vegetarian', 'Gluten-Free'],
     }),
   ];
 

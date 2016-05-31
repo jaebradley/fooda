@@ -11,10 +11,12 @@ describe('Menu data model object', function() {
     const customName = 'jae';
     const customPrice = 'bae';
     const customDescription = 'bradley';
+    const customLabels = ['jae', 'bae'];
     const customItem = new Item({
       name: customName,
       price: customPrice,
       description: customDescription,
+      labels: customLabels,
     });
 
     const customVendorName = 'jae';
