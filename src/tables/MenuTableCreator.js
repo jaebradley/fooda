@@ -15,16 +15,17 @@ export default class MenuTableCreator {
     this.menuTypeOrder = [
       MenuType.ENTREES,
       MenuType.COMBINATIONS,
-      MenuType.DESSERTS,
+      MenuType.SANDWICHES,
       MenuType.SALADS,
       MenuType.SIDES,
       MenuType.SIDES_AND_DESSERT,
+      MenuType.DESSERTS,
     ];
     this.footer = ['Vegetarian'.green, 'Gluten Free'.yellow, 'Vegetarian & Gluten Free'.magenta];
   }
 
-  generateHeader(vendor) {
-    return [vendor, this.priceEmoji, this.memoEmoji];
+  generateHeader(vendor, date) {
+    return [`${vendor} (${date})`, this.priceEmoji, this.memoEmoji];
   }
 
   generateFormattedRow(name, price, description, labels) {
@@ -40,7 +41,7 @@ export default class MenuTableCreator {
   }
 
   create(menu) {
-    const table = new Table({head: this.generateHeader(menu.vendor), colWidths: this.colWidths, wordWrap: true});
+    const table = new Table({head: this.generateHeader(menu.vendor, menu.date), colWidths: this.colWidths, wordWrap: true});
     this.menuTypeOrder.map(function(menuType) {
       let items = menu.get(menuType);
       items.map(item => table.push(this.generateFormattedRow(item.name, item.price, item.description, item.labels)));
