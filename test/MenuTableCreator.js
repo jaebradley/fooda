@@ -2,11 +2,13 @@
 
 import {expect} from 'chai';
 import emoji from 'node-emoji';
+import colors from 'colors';
 
 import MenuTableCreator from '../src/tables/MenuTableCreator';
 import MenuType from '../src/data/MenuType';
 import Menu from '../src/data/Menu';
 import Item from '../src/data/Item';
+import DietaryRestrictions from '../src/data/DietaryRestrictions';
 
 describe('Menu table creator', function() {
   const tableCreator = new MenuTableCreator();
@@ -47,6 +49,24 @@ describe('Menu table creator', function() {
   it('tests header generation', function() {
     const expectedHeader = ['jae (bradley)', expectedPriceEmoji, expectedMemoEmoji];
     expect(tableCreator.generateHeader('jae', 'bradley')).to.eql(expectedHeader);
+  });
+
+  it('tests generate formatted row', function() {
+    const testName = 'jae';
+    const testPrice = 'bae';
+    const testDescription = 'bradley';
+    const testEmptyLabels = [];
+    const testVegetarianLabels = [DietaryRestrictions.VEGETARIAN];
+    const testGlutenFreeLabels = [DietaryRestrictions.GLUTEN_FREE];
+    const testBothLables = [DietaryRestrictions.VEGETARIAN, DietaryRestrictions.GLUTEN_FREE];
+    const expectedVegetarianRow = [testName.green, testPrice.green, testDescription.green];
+    const expectedGlutenFreeRow = [testName.yellow, testPrice.yellow, testDescription.yellow];
+    const expectedBothRow = [testName.magenta, testPrice.magenta, testDescription.magenta];
+    const expectedNeitherRow = [testName, testPrices, testDescription];
+    expect(tableCreator.generateHeader(testName, testPrice, testDescription, testsEmptyLabels)).to.eql(expectedNeitherRow);
+    expect(tableCreator.generateHeader(testName, testPrice, testDescription, testVegetarianLabels)).to.eql(expectedVegetarianRow);
+    expect(tableCreator.generateHeader(testName, testPrices, testDescription, testGlutenFreeLabels)).to.eql(expectedGlutenFreeRow);
+    expect(tableCreator.generateHeader(testName, testPrices, testDescription, testBothLables)).to.eql(expectedBothRow);
   });
 
   it('tests table creation', function() {
