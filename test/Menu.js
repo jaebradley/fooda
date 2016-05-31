@@ -26,6 +26,7 @@ describe('Menu data model object', function() {
     const customSalads = [customItem, customItem, customItem, customItem];
     const customSides = [customItem, customItem, customItem, customItem, customItem];;
     const customSidesAndDessert = [customItem, customItem, customItem, customItem, customItem];
+    const customSandwiches = [customItem, customItem, customItem, customItem, customItem, customItem];
 
   it('creates default menu', function() {
     const defaultMenu = new Menu();
@@ -34,6 +35,7 @@ describe('Menu data model object', function() {
     expect(defaultMenu.get(MenuType.COMBINATIONS)).to.eql([]);
     expect(defaultMenu.get(MenuType.DESSERTS)).to.eql([]);
     expect(defaultMenu.get(MenuType.ENTREES)).to.eql([]);
+    expect(defaultMenu.get(MenuType.SANDWICHES)).to.eql([]);
     expect(defaultMenu.get(MenuType.SALADS)).to.eql([]);
     expect(defaultMenu.get(MenuType.SIDES)).to.eql([]);
     expect(defaultMenu.get(MenuType.SIDES_AND_DESSERT)).to.eql([]);
@@ -45,6 +47,7 @@ describe('Menu data model object', function() {
     customMenuProperties[MenuType.COMBINATIONS] = customCombinations;
     customMenuProperties[MenuType.DESSERTS] = customDesserts;
     customMenuProperties[MenuType.ENTREES] = customEntrees;
+    customMenuProperties[MenuType.SANDWICHES] = customSandwiches;
     customMenuProperties[MenuType.SALADS] = customSalads;
     customMenuProperties[MenuType.SIDES] = customSides;
     customMenuProperties[MenuType.SIDES_AND_DESSERT] = customSidesAndDessert;
@@ -54,6 +57,7 @@ describe('Menu data model object', function() {
     expect(customMenu.get(MenuType.COMBINATIONS)).to.eql(customCombinations);
     expect(customMenu.get(MenuType.DESSERTS)).to.eql(customDesserts);
     expect(customMenu.get(MenuType.ENTREES)).to.eql(customEntrees);
+    expect(customMenu.get(MenuType.SANDWICHES)).to.eql(customSandwiches);
     expect(customMenu.get(MenuType.SALADS)).to.eql(customSalads);
     expect(customMenu.get(MenuType.SIDES)).to.eql(customSides);
     expect(customMenu.get(MenuType.SIDES_AND_DESSERT)).to.eql(customSidesAndDessert);
