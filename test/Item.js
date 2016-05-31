@@ -23,7 +23,7 @@ describe('Item data model object', function() {
       name: customName,
       price: customPrice,
       description: customDescription,
-      labels: labels,
+      labels: customLabels,
     });
 
     expect(customItem.name).to.equal(customName);
