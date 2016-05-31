@@ -1,5 +1,7 @@
 'use es6';
 
+import emoji from 'node-emoji';
+
 import FoodaClient from '../clients/FoodaClient';
 import MenuTableCreator from '../tables/MenuTableCreator';
 import LocationOption from '../data/LocationOption';
@@ -9,6 +11,7 @@ export default class MenuCommand {
   constructor() {
     this.client = new FoodaClient();
     this.menuTableCreator = new MenuTableCreator();
+    this.sadEmoji = emoji.get('cry');
   }
 
   run(location) {
@@ -27,7 +30,13 @@ export default class MenuCommand {
     if (locationValue !== null) {
       this.client
           .fetch(locationValue)
-          .then(menus => menus.map(menu => console.log(this.menuTableCreator.create(menu))));
+          .then((function(menus) {
+            if (menus.length > 0) {
+              menus.map(menu => console.log(this.menuTableCreator.create(menu)));
+            } else {
+              console.log(`No Fooda...sorry ${this.sadEmoji} ${this.sadEmoji} ${this.sadEmoji}`);
+            }
+          }).bind(this));
     }
   }
 }

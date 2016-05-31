@@ -13,19 +13,20 @@ export default class MenuTableCreator {
     this.menuTypeOrder = [
       MenuType.ENTREES,
       MenuType.COMBINATIONS,
-      MenuType.DESSERTS,
+      MenuType.SANDWICHES,
       MenuType.SALADS,
       MenuType.SIDES,
       MenuType.SIDES_AND_DESSERT,
+      MenuType.DESSERTS,
     ];
   }
 
-  generateHeader(vendor) {
-    return [vendor, this.priceEmoji, this.memoEmoji];
+  generateHeader(vendor, date) {
+    return [`${vendor} (${date})`, this.priceEmoji, this.memoEmoji];
   }
 
   create(menu) {
-    const table = new Table({head: this.generateHeader(menu.vendor), colWidths: this.colWidths, wordWrap: true});
+    const table = new Table({head: this.generateHeader(menu.vendor, menu.date), colWidths: this.colWidths, wordWrap: true});
     this.menuTypeOrder.map(function(menuType) {
       let items = menu.get(menuType);
       items.map(item => table.push([item.name, item.price, item.description]));
