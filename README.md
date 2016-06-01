@@ -5,6 +5,8 @@
 
 ### Where my food(a) at?
 
+![alt-media](https://i.imgur.com/FFkVOSc.png)
+
 #### Installation
 * Install the Fooda CLI using Node Package Manager (NPM) by typing `npm install fooda -g` into your terminal.
 
