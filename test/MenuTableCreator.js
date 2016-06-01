@@ -62,11 +62,11 @@ describe('Menu table creator', function() {
     const expectedVegetarianRow = [testName.green, testPrice.green, testDescription.green];
     const expectedGlutenFreeRow = [testName.yellow, testPrice.yellow, testDescription.yellow];
     const expectedBothRow = [testName.magenta, testPrice.magenta, testDescription.magenta];
-    const expectedNeitherRow = [testName, testPrices, testDescription];
-    expect(tableCreator.generateHeader(testName, testPrice, testDescription, testsEmptyLabels)).to.eql(expectedNeitherRow);
-    expect(tableCreator.generateHeader(testName, testPrice, testDescription, testVegetarianLabels)).to.eql(expectedVegetarianRow);
-    expect(tableCreator.generateHeader(testName, testPrices, testDescription, testGlutenFreeLabels)).to.eql(expectedGlutenFreeRow);
-    expect(tableCreator.generateHeader(testName, testPrices, testDescription, testBothLables)).to.eql(expectedBothRow);
+    const expectedNeitherRow = [testName, testPrice, testDescription];
+    expect(tableCreator.generateFormattedRow(testName, testPrice, testDescription, testEmptyLabels)).to.eql(expectedNeitherRow);
+    expect(tableCreator.generateFormattedRow(testName, testPrice, testDescription, testVegetarianLabels)).to.eql(expectedVegetarianRow);
+    expect(tableCreator.generateFormattedRow(testName, testPrice, testDescription, testGlutenFreeLabels)).to.eql(expectedGlutenFreeRow);
+    expect(tableCreator.generateFormattedRow(testName, testPrice, testDescription, testBothLables)).to.eql(expectedBothRow);
   });
 
   it('tests table creation', function() {
