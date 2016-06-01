@@ -36,7 +36,7 @@ export default class FoodaHtmlParser {
   getTextValues($, lookupKey) {
     const values = [];
     $(lookupKey).each(function(index, element) {
-      values.push($(this).text().trim());
+      values.push($(this).text().trim().replace(/(\r\n|\n|\r)/gm,'\n'));
     });
     return values;
   }
