@@ -11,7 +11,7 @@ export default class MenuTableCreator {
   constructor() {
     this.priceEmoji = emoji.get('moneybag');
     this.memoEmoji = emoji.get('memo');
-    this.cookieEmoji = emoji.get('cake');
+    this.dessertEmoji = emoji.get('cake');
     this.friesEmoji = emoji.get('fries');
     this.hamburgerEmoji = emoji.get('hamburger');
     this.herbEmoji = emoji.get('herb');
@@ -40,10 +40,10 @@ export default class MenuTableCreator {
     let menuTypeEmoji = this.pizzaEmoji;
     switch (menuType) {
       case MenuType.DESSERTS:
-        menuTypeEmoji = this.cookieEmoji;
+        menuTypeEmoji = this.dessertEmoji;
         break;
       case MenuType.SIDES_AND_DESSERT:
-        menuTypeEmoji = `${this.cookieEmoji} ${this.friesEmoji}`;
+        menuTypeEmoji = `${this.dessertEmoji} ${this.friesEmoji}`;
         break;
       case MenuType.SIDES:
         menuTypeEmoji = this.friesEmoji;

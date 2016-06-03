@@ -14,7 +14,22 @@ describe('Menu table creator', function() {
   const tableCreator = new MenuTableCreator();
   const expectedPriceEmoji = emoji.get('moneybag');
   const expectedMemoEmoji = emoji.get('memo');
+  const expectedDessertEmoji = emoji.get('cake');
+  const expectedFriesEmoji = emoji.get('fries');
+  const expectedHamburgerEmoji = emoji.get('hamburger');
+  const expectedHerbEmoji = emoji.get('herb');
+  const expectedTomatoEmoji = emoji.get('tomato');
+  const expectedBeerEmoji = emoji.get('beer');
+  const expectedPizzaEmoji = emoji.get('pizza');
   const expectedColWidths = [null, 10, 50];
+
+  const dessertsHeader = 'DESSERTS'.cyan;
+  const sidesAndDessertHeader = 'SIDESANDDESSERT'.cyan;
+  const sidesHeader = 'SIDES'.cyan;
+  const saladsHeader = 'SALADS'.cyan;
+  const sandwichesHeader = 'SANDWICHES'.cyan;
+  const combinationsHeader = 'COMBINATIONS'.cyan;
+  const entreesHeader = 'ENTREES'.cyan;
 
   const menuItem = new Item({
     name: 'jae',
@@ -44,11 +59,35 @@ describe('Menu table creator', function() {
       MenuType.SIDES_AND_DESSERT,
       MenuType.DESSERTS,
     ]);
+    expect(tableCreator.dessertEmoji).to.equal(expectedDessertEmoji);
+    expect(tableCreator.friesEmoji).to.equal(expectedFriesEmoji);
+    expect(tableCreator.hamburgerEmoji).to.equal(expectedHamburgerEmoji);
+    expect(tableCreator.herbEmoji).to.equal(expectedHerbEmoji);
+    expect(tableCreator.tomatoEmoji).to.equal(expectedTomatoEmoji);
+    expect(tableCreator.beerEmoji).to.equal(expectedBeerEmoji);
+    expect(tableCreator.pizzaEmoji).to.equal(expectedPizzaEmoji);
   });
 
   it('tests header generation', function() {
     const expectedHeader = ['jae (bradley)', expectedPriceEmoji, expectedMemoEmoji];
     expect(tableCreator.generateHeader('jae', 'bradley')).to.eql(expectedHeader);
+  });
+
+  it('tests menu type header generation', function() {
+    const expectedDessertsHeader = [{content: `${dessertsHeader} ${expectedDessertEmoji}`, colSpan: 3}];
+    const expectedSidesAndDessertHeader = [{content: `${sidesAndDessertHeader} ${expectedDessertEmoji} ${expectedFriesEmoji}`, colSpan: 3}];
+    const expectedSidesHeader = [{content: `${sidesHeader} ${expectedFriesEmoji}`, colSpan: 3}];
+    const expectedSaladsHeader = [{content: `${saladsHeader} ${expectedHerbEmoji} ${expectedTomatoEmoji}`, colSpan: 3}];
+    const expectedSandwichesHeader = [{content: `${sandwichesHeader} ${expectedHamburgerEmoji}`, colSpan: 3}];
+    const expectedCombinationsHeader = [{content: `${combinationsHeader} ${expectedHamburgerEmoji} ${expectedFriesEmoji} ${expectedBeerEmoji}`, colSpan: 3}];
+    const expectedEntreesHeader = [{content: `${entreesHeader} ${expectedPizzaEmoji}`, colSpan: 3}];
+    expect(tableCreator.generateMenuTypeHeader(MenuType.DESSERTS)).to.eql(expectedDessertsHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.SIDES_AND_DESSERT)).to.eql(expectedSidesAndDessertHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.SIDES)).to.eql(expectedSidesHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.SALADS)).to.eql(expectedSaladsHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.SANDWICHES)).to.eql(expectedSandwichesHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.COMBINATIONS)).to.eql(expectedCombinationsHeader);
+    expect(tableCreator.generateMenuTypeHeader(MenuType.ENTREES)).to.eql(expectedEntreesHeader);
   });
 
   it('tests generate formatted row', function() {
