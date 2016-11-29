@@ -24,7 +24,8 @@
     "request-promise": "3.0.0",
     "q": "1.4.1",
     "immutable": "3.8.1",
-    "cheerio": "0.20.0 "
+    "cheerio": "0.20.0",
+    "enumify": "1.0.4"
   },
   "devDependencies": {
     "chai": "3.5.0",
