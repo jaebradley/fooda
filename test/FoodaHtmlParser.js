@@ -12,11 +12,11 @@ import Item from '../src/data/Item';
 import Menu from '../src/data/Menu';
 
 describe('Fooda Html Parser', function() {
-  const sampleHtml = fs.readFileSync(path.join(__dirname, './html/fooda.html'));
-  const $ = cheerio.load(sampleHtml);
-  const testLookupKey = 'div[class=item--no-photo][data-vendor_name="Curry House"][data-category="Entrees"] div[class=item__name]';
+  let sampleHtml = fs.readFileSync(path.join(__dirname, './html/fooda.html'));
+  let $ = cheerio.load(sampleHtml);
+  let testLookupKey = 'div[class=item--no-photo][data-vendor_name="Curry House"][data-category="Entrees"] div[class=item__name]';
 
-  const curryHouseEntrees = List.of(
+  let curryHouseEntrees = List.of(
     new Item({
       name: 'Saag Paneer (V)',
       price: '$7.48',
@@ -49,50 +49,50 @@ describe('Fooda Html Parser', function() {
     }),
   );
 
-  const curryHouseCombinations = [
+  let curryHouseCombinations = List.of(
     new Item({
       name: 'Vegetarian Combo',
       price: '$8.41',
       description: 'Your choice of any two vegetarian entrees, served with long-grain basmati rice',
-      labels: ['Vegetarian'],
+      labels: List.of('Vegetarian'),
     }),
     new Item({
       name: 'Curry House Combo',
       price: '$9.35',
       description: 'Your choice of any two entrées one meat one vegetarian, served with long-grain basmati rice',
-      labels: [],
+      labels: List.of(),
     }),
-  ];
+  );
 
-  const curryHouseSides = [
+  let curryHouseSides = List.of(
     new Item({
       name: 'Basmati Rice',
       price: '$1.87',
       description: 'Traditional, long-grain white rice',
-      labels: ['Gluten-Free'],
+      labels: List.of('Gluten-Free'),
     }),
     new Item({
       name: 'Naan',
       price: '$1.87',
       description: 'Indian bread made fresh daily in our tandoor oven',
-      labels: [],
+      labels: List.of(),
     }),
     new Item({
       name: 'Vegetable Samosa (1)',
       price: '$1.87',
       description: 'Crispy turnover filled with seasoned potatoes and green peas',
-      labels: [],
+      labels: List.of(),
     })
-  ];
+  );
 
-  const curryHouseDesserts = [
+  let curryHouseDesserts = List.of(
     new Item({
       name: 'Kheer',
       price: '$1.87',
       description: 'Homemade rice pudding flavored with cardamom, served chilled',
-      labels: [],
+      labels: List.of(),
     }),
-  ];
+  );
 
   const mexicaliEntrees = [
     new Item({
@@ -195,7 +195,7 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test generate menu', function() {
-    expect(FoodaHtmlParser.generateMenu($, 'Curry House')).to.eql(expectedCurryHouseMenu);
+    expect(FoodaHtmlParser.generateMenu($, 'Curry House').toJS()).to.eql(expectedCurryHouseMenu);
   });
 
   it('test parse', function() {
