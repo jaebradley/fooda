@@ -1,19 +1,29 @@
 'use es6';
 
-const combinations = 'combinations';
-const desserts = 'desserts';
-const entrees = 'entrees';
-const sandwiches = 'sandwiches';
-const salads = 'salads';
-const sides = 'sides';
-const sidesAndDessert = 'sidesAndDessert';
+import {Enum} from 'enumify';
 
-export default {
-  COMBINATIONS: combinations,
-  ENTREES: entrees,
-  SANDWICHES: sandwiches,
-  SALADS: salads,
-  SIDES: sides,
-  SIDES_AND_DESSERT: sidesAndDessert,
-  DESSERTS: desserts,
-};
+export default class MenuType extends Enum {};
+
+MenuType.initEnum({
+  COMBINATIONS: {
+    value: 'combinations',
+  },
+  DESSERTS: {
+    value: 'desserts',
+  }
+  ENTREES: {
+    value: 'entrees',
+  },
+  SANDWICHES: {
+    value: 'sandwiches',
+  },
+  SALADS: {
+    value: 'salads',
+  },
+  SIDES: {
+    value: 'sides',
+  },
+  SIDES_AND_DESSERT: {
+    value: 'sidesAndDessert',
+  },
+});
