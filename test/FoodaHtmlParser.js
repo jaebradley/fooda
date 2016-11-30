@@ -109,44 +109,44 @@ describe('Fooda Html Parser', function() {
     }),
   );
 
-  const mexicaliSalads = [
+  let mexicaliSalads = List.of(
     new Item({
       name: 'Taco Salad',
       price: '$8.41',
       description: 'Romaine lettuce, corn tortilla chips, choice of meat or veggie, sour cream, pico de gallo tomato salsa, and shredded jack cheese',
-      labels: ['Gluten-Free'],
+      labels: List.of('Gluten-Free'),
     }),
-  ];
+  );
 
-  const mexicaliSidesAndDessert = [
+  let mexicaliSidesAndDessert = List.of(
     new Item({
       name: 'Chips',
       price: '$1.87',
       description: 'Homemade corn tortilla chips',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
     new Item({
       name: 'Chips and Guacamole',
       price: '$3.74',
       description: 'Homemade corn tortilla chips served with handmade guacamole',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
     new Item({
       name: 'Chips and Salsa',
       price: '$3.27',
       description: 'Homemade corn tortilla chips served with a chunky tomato salsa',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
-  ];
+  );
 
-  const mexicaliDesserts = [
+  const mexicaliDesserts = List.of(
     new Item({
       name: 'Stoneground Taza Chocolate Disk',
       price: '$4.67',
       description: 'Organic dark Mexican style chocolate discs bursting with bright tastes and bold textures',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
-  ];
+  );
 
   let expectedCurryHouseMenuParameters = {vendor: 'Curry House', 'date': 'popup today, May 27'};
   expectedCurryHouseMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
@@ -168,7 +168,7 @@ describe('Fooda Html Parser', function() {
   expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT] = mexicaliSidesAndDessert;
   let expectedMexicaliMenu = new Menu(expectedMexicaliMenuParameters);
 
-  const expectedMenus = [expectedCurryHouseMenu, expectedMexicaliMenu];
+  const expectedMenus = List.of(expectedCurryHouseMenu, expectedMexicaliMenu);
 
   it('test vendor generation', function() {
     let vendors = FoodaHtmlParser.generateVendors($);
@@ -199,6 +199,6 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test parse', function() {
-    expect(FoodaHtmlParser.parse(sampleHtml)).to.eql(expectedMenus);
+    expect(FoodaHtmlParser.parse(sampleHtml).toJS()).to.eql(expectedMenus.toJS());
   });
 })

@@ -37,12 +37,9 @@ export default class FoodaHtmlParser {
   }
 
   static parse(html) {
-    let menus = [];
     let $ = cheerio.load(html);
-
-    let vendors = FoodaHtmlParser.generateVendors($);
-    vendors.map(vendor => menus.push(FoodaHtmlParser.generateMenu($, vendor)));
-    return menus;
+    return List(FoodaHtmlParser.generateVendors($)
+                                  .map(vendor => FoodaHtmlParser.generateMenu($, vendor)));
   }
 
   static getTextValues($, lookupKey) {
