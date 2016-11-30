@@ -10,7 +10,7 @@ MenuType.initEnum({
   },
   DESSERTS: {
     value: 'desserts',
-  }
+  },
   ENTREES: {
     value: 'entrees',
   },
