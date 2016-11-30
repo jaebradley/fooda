@@ -1,6 +1,6 @@
 {
   "name": "fooda",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "fooda",
   "scripts": {
     "test": "npm run build && mocha --compilers js:babel-core/register",
