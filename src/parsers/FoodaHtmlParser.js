@@ -1,7 +1,7 @@
 'use es6';
 
 import cheerio from 'cheerio';
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
 
 import Item from '../data/Item';
 import Menu from '../data/Menu';
@@ -75,8 +75,8 @@ export default class FoodaHtmlParser {
   static generateMenu($, vendor) {
     let categoriesMap = FoodaHtmlParser.getCategoriesMapping();
     let menu = Map({vendor: vendor, date: FoodaHtmlParser.generateDate($)});
-    categoriesMap.entries()
-                 .forEach(entry => menu.set(entry[0], FoodaHtmlParser.generateItems($, vendor, entry[1])));
+    let keys = List(categoriesMap.keys());
+    keys.forEach(key => menu.set(key, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
     return new Menu(menu.toJS());
   }
 

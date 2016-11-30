@@ -11,7 +11,6 @@ import Item from '../src/data/Item';
 import Menu from '../src/data/Menu';
 
 describe('Fooda Html Parser', function() {
-  const parser = new FoodaHtmlParser();
   const sampleHtml = fs.readFileSync(path.join(__dirname, './html/fooda.html'));
   const $ = cheerio.load(sampleHtml);
   const testLookupKey = 'div[class=item--no-photo][data-vendor_name="Curry House"][data-category="Entrees"] div[class=item__name]';
@@ -170,20 +169,11 @@ describe('Fooda Html Parser', function() {
 
   const expectedMenus = [expectedCurryHouseMenu, expectedMexicaliMenu];
 
-  it('test constructor', function() {
-    expect(parser.categoriesMap[MenuType.COMBINATIONS]).to.equal('Combinations');
-    expect(parser.categoriesMap[MenuType.DESSERTS]).to.equal('Desserts');
-    expect(parser.categoriesMap[MenuType.ENTREES]).to.equal('Entrees');
-    expect(parser.categoriesMap[MenuType.SALADS]).to.equal('Salads');
-    expect(parser.categoriesMap[MenuType.SIDES]).to.equal('Sides');
-    expect(parser.categoriesMap[MenuType.SIDES_AND_DESSERT]).to.equal('Sides & Dessert');
-  });
-
   it('test vendor generation', function() {
-    const vendors = parser.generateVendors($);
-    expect(vendors.length).to.equal(2);
-    expect(vendors[0]).to.equal('Curry House');
-    expect(vendors[1]).to.equal('MexiCali Burrito Co.');
+    let vendors = FoodaHtmlParser.generateVendors($);
+    expect(vendors.size).to.equal(2);
+    expect(vendors.get(0)).to.equal('Curry House');
+    expect(vendors.get(1)).to.equal('MexiCali Burrito Co.');
   });
 
   it('test get text values', function() {
@@ -194,20 +184,20 @@ describe('Fooda Html Parser', function() {
       'Chicken Tikka Masala',
       "Chef's Special Entrée",
     ];
-    const entrees = parser.getTextValues($, testLookupKey);
+    const entrees = FoodaHtmlParser.getTextValues($, testLookupKey);
     expect(entrees).to.eql(expectedEntrees);
   });
 
   it('test generate items', function() {
-    const items = parser.generateItems($, 'Curry House', 'Entrees');
+    const items = FoodaHtmlParser.generateItems($, 'Curry House', 'Entrees');
     expect(items).to.eql(curryHouseEntrees);
   });
 
   it('test generate menu', function() {
-    expect(parser.generateMenu($, 'Curry House')).to.eql(expectedCurryHouseMenu);
+    expect(FoodaHtmlParser.generateMenu($, 'Curry House')).to.eql(expectedCurryHouseMenu);
   });
 
   it('test parse', function() {
-    expect(parser.parse(sampleHtml)).to.eql(expectedMenus);
+    expect(FoodaHtmlParser.parse(sampleHtml)).to.eql(expectedMenus);
   });
 })
