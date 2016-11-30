@@ -15,7 +15,8 @@ export default class FoodaHtmlParser {
     map = map.set(MenuType.ENTREES, 'Entrees');
     map = map.set(MenuType.SANDWICHES, 'Sandwiches');
     map = map.set(MenuType.SALADS, 'Salads');
-    map = map.set(MenuType.SIDES, 'Sides & Dessert');
+    map = map.set(MenuType.SIDES, 'Sides');
+    map = map.set(MenuType.SIDES_AND_DESSERT, 'Sides & Dessert');
     return map;
   }
 

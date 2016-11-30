@@ -94,20 +94,20 @@ describe('Fooda Html Parser', function() {
     }),
   );
 
-  const mexicaliEntrees = [
+  let mexicaliEntrees = List.of(
     new Item({
       name: 'Burrito Bowl',
       price: '$8.41',
       description: 'Black beans, rice, choice of meat or veggie, sour cream, pico de gallo tomato salsa, and shredded jack cheese with your choice of protein:Spicy rojo chicken- grilled with a habanero red chile sauce, Pulled Chile Colorado Pork, Seasonal veggies (GF',
-      labels: [],
+      labels: List.of(),
     }),
     new Item({
       name: 'Add guacamole or extra protein $1.87',
       price: '',
       description: '',
-      labels: [],
+      labels: List.of(),
     }),
-  ];
+  );
 
   const mexicaliSalads = [
     new Item({
@@ -148,25 +148,25 @@ describe('Fooda Html Parser', function() {
     }),
   ];
 
-  const expectedCurryHouseMenuParameters = {vendor: 'Curry House', 'date': 'popup today, May 27'};
+  let expectedCurryHouseMenuParameters = {vendor: 'Curry House', 'date': 'popup today, May 27'};
   expectedCurryHouseMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
   expectedCurryHouseMenuParameters[MenuType.DESSERTS] = curryHouseDesserts;
   expectedCurryHouseMenuParameters[MenuType.ENTREES] = curryHouseEntrees;
-  expectedCurryHouseMenuParameters[MenuType.SANDWICHES] = [];
-  expectedCurryHouseMenuParameters[MenuType.SALADS] = [];
+  expectedCurryHouseMenuParameters[MenuType.SANDWICHES] = List.of();
+  expectedCurryHouseMenuParameters[MenuType.SALADS] = List.of();
   expectedCurryHouseMenuParameters[MenuType.SIDES] = curryHouseSides;
-  expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT] = [];
-  const expectedCurryHouseMenu = new Menu(expectedCurryHouseMenuParameters);
+  expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT] = List.of();
+  let expectedCurryHouseMenu = new Menu(expectedCurryHouseMenuParameters);
 
-  const expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.' , 'date': 'popup today, May 27'};
-  expectedMexicaliMenuParameters[MenuType.COMBINATIONS] = [];
+  let expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.' , 'date': 'popup today, May 27'};
+  expectedMexicaliMenuParameters[MenuType.COMBINATIONS] = List.of();
   expectedMexicaliMenuParameters[MenuType.DESSERTS] = mexicaliDesserts;
   expectedMexicaliMenuParameters[MenuType.ENTREES] = mexicaliEntrees;
-  expectedMexicaliMenuParameters[MenuType.SANDWICHES] = [];
+  expectedMexicaliMenuParameters[MenuType.SANDWICHES] = List.of();
   expectedMexicaliMenuParameters[MenuType.SALADS] = mexicaliSalads;
-  expectedMexicaliMenuParameters[MenuType.SIDES] = [];
+  expectedMexicaliMenuParameters[MenuType.SIDES] = List.of();
   expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT] = mexicaliSidesAndDessert;
-  const expectedMexicaliMenu = new Menu(expectedMexicaliMenuParameters);
+  let expectedMexicaliMenu = new Menu(expectedMexicaliMenuParameters);
 
   const expectedMenus = [expectedCurryHouseMenu, expectedMexicaliMenu];
 
@@ -195,7 +195,7 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test generate menu', function() {
-    expect(FoodaHtmlParser.generateMenu($, 'Curry House').toJS()).to.eql(expectedCurryHouseMenu);
+    expect(FoodaHtmlParser.generateMenu($, 'Curry House').toJS()).to.eql(expectedCurryHouseMenu.toJS());
   });
 
   it('test parse', function() {
