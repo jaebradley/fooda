@@ -4,32 +4,29 @@ import program from 'commander';
 import emoji from 'node-emoji';
 import MenuCommand from './MenuCommand';
 import Help from './Help';
-import LocationOption from '../data/LocationOption';
+import Location from '../data/Location';
 
 export default class CommandRunner {
-  constructor() {
-    this.menuCommand = new MenuCommand();
-    this.screamEmoji = emoji.get('scream');
-    this.astonishedEmoji = emoji.get('astonished');
-    this.rutroEmojis = `${this.screamEmoji} ${this.astonishedEmoji} ${this.screamEmoji} ${this.astonishedEmoji}`;
+  static getRutroEmojis() {
+    return `${emoji.get('scream')} ${emoji.get('astonished')} ${emoji.get('scream')} ${emoji.get('astonished')}`;
   }
 
-  run() {
+  static run() {
     program.version("0.0.1");
 
-    program.on('help', function() { 
+    program.on('help', function() {
         console.log(Help.TEXT);
-        process.exit(1); 
+        process.exit(1);
     });
 
-    program.command("menu [location]")
+    program.command("menu <location>")
             .description("get fooda data")
             .action((function(location) {
-              if (typeof location == 'undefined' || !LocationOption.isValid(location)) {
-                console.log(`${this.rutroEmojis} ${location} is not a valid location ${this.rutroEmojis}`);
+              if (typeof location == 'undefined' || ((location.toUpperCase() !== 'HUBSPOT') && (location.toUpperCase() !== 'DAVENPORT'))) {
+                console.log(`${CommandRunner.getRutroEmojis()} ${location} is not a valid location ${CommandRunner.getRutroEmojis()}`);
                 console.log(Help.TEXT);
               } else {
-                this.menuCommand.run(location);
+                MenuCommand.run(location);
               }
             }).bind(this));
 

@@ -4,7 +4,8 @@ import {Enum} from 'enumify';
 
 import LocationEndpoint from './LocationEndpoint';
 
-export default class Location extends Enum {};
+export default class Location extends Enum {
+};
 
 Location.initEnum({
   DAVENPORT: {

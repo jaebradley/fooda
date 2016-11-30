@@ -11,7 +11,7 @@ export default class FoodaClient {
 
   static fetch(location) {
     return rp( { uri: FoodaClient.generateUrl(location) } )
-      .then(html => FoodaHtmlParser.parse(html))
+      .then(html => html)
       .catch(err => console.log(err));
   }
 

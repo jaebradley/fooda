@@ -3,5 +3,4 @@
 
 import CommandRunner from './commands/CommandRunner';
 
-const commandRunner = new CommandRunner();
-commandRunner.run();
+CommandRunner.run();
