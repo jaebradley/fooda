@@ -3,10 +3,6 @@
 import {expect} from 'chai';
 
 import FoodaClient from '../src/clients/FoodaClient';
-import Menu from '../src/data/Menu';
-import Item from '../src/data/Item';
-import MenuType from '../src/data/MenuType';
-import FoodaHtmlParser from '../src/parsers/FoodaHtmlParser';
 import Location from '../src/data/Location';
 
 describe('Fooda client', function() {
