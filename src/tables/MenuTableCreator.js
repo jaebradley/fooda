@@ -1,5 +1,6 @@
 'use es6';
 
+import {List} from 'immutable';
 import Table from 'cli-table2';
 import emoji from 'node-emoji';
 import colors from 'colors';
@@ -31,45 +32,43 @@ export default class MenuTableCreator {
     this.footer = [{colSpan: 3, content: `${'Vegetarian'.green}\n${'Gluten Free'.yellow}\n${'Vegetarian & Gluten Free'.magenta}`}];
   }
 
+  static getColumnWidths() {
+    return [null, 10, 50];
+  }
+
+  static getPriceEmoji() {
+    return emoji.get('moneybag');
+  }
+
+  static getMemoEmoji() {
+    return emoji.get('memo');
+  }
+
+  static getFooter() {
+    return [{colSpan: 3, content: `${'Vegetarian'.green}\n${'Gluten Free'.yellow}\n${'Vegetarian & Gluten Free'.magenta}`}];
+  }
+
+  static getMenuOrder() {
+    return List.of(
+      MenuType.ENTREES,
+      MenuType.COMBINATIONS,
+      MenuType.SANDWICHES,
+      MenuType.SALADS,
+      MenuType.SIDES,
+      MenuType.SIDES_AND_DESSERT,
+      MenuType.DESSERTS,
+    );
+  }
+
   generateHeader(vendor, date) {
-    return [`${vendor} (${date})`, this.priceEmoji, this.memoEmoji];
+    return [`${vendor} (${date})`, MenuTableCreator.getPriceEmoji(), MenuTableCreator.getMemoEmoji()];
   }
 
   generateMenuTypeHeader(menuType) {
-    const formattedMenuType = menuType.toUpperCase().cyan;
-    let menuTypeEmoji = this.pizzaEmoji;
-    switch (menuType) {
-      case MenuType.DESSERTS:
-        menuTypeEmoji = this.dessertEmoji;
-        break;
-      case MenuType.SIDES_AND_DESSERT:
-        menuTypeEmoji = `${this.dessertEmoji} ${this.friesEmoji}`;
-        break;
-      case MenuType.SIDES:
-        menuTypeEmoji = this.friesEmoji;
-        break;
-      case MenuType.SALADS:
-        menuTypeEmoji = `${this.herbEmoji} ${this.tomatoEmoji}`;
-        break;
-      case MenuType.SANDWICHES:
-        menuTypeEmoji = this.hamburgerEmoji;
-        break;
-      case MenuType.COMBINATIONS:
-        menuTypeEmoji = `${this.hamburgerEmoji} ${this.friesEmoji} ${this.beerEmoji}`;
-        break;
-      case MenuType.ENTREES:
-        menuTypeEmoji = this.pizzaEmoji;
-        break;
-      default:
-        menuTypeEmoji = this.pizzaEmoji;
-        break;
-    }
-
-    return [{content: `${formattedMenuType} ${menuTypeEmoji}`, colSpan: 3}];
+    return [{content: `${menuType.value.toUpperCase().cyan} ${menuType.emoji}`, colSpan: 3}];
   }
 
   generateFormattedRow(name, price, description, labels) {
-
     if (labels.indexOf(DietaryRestrictions.VEGETARIAN) > -1 && labels.indexOf(DietaryRestrictions.GLUTEN_FREE) > -1) {
       return [name.magenta, price.magenta, description.magenta];
     } else if (labels.indexOf(DietaryRestrictions.VEGETARIAN) > -1) {
@@ -82,7 +81,7 @@ export default class MenuTableCreator {
   }
 
   create(menu) {
-    const table = new Table({head: this.generateHeader(menu.vendor, menu.date), colWidths: this.colWidths, wordWrap: true,});
+    let table = new Table({head: this.generateHeader(menu.vendor, menu.date), colWidths: this.colWidths, wordWrap: true,});
     this.menuTypeOrder.map((function(menuType) {
       let items = menu.get(menuType);
       if (items.length > 0) {

@@ -46,28 +46,6 @@ describe('Menu table creator', function() {
   menuOptions[MenuType.SIDES_AND_DESSERT] = [menuItem];
   const menu = new Menu(menuOptions);
 
-  it('tests constructor', function() {
-    expect(tableCreator.priceEmoji).to.equal(expectedPriceEmoji);
-    expect(tableCreator.memoEmoji).to.equal(expectedMemoEmoji);
-    expect(tableCreator.colWidths).to.eql(expectedColWidths);
-    expect(tableCreator.menuTypeOrder).to.eql([
-      MenuType.ENTREES,
-      MenuType.COMBINATIONS,
-      MenuType.SANDWICHES,
-      MenuType.SALADS,
-      MenuType.SIDES,
-      MenuType.SIDES_AND_DESSERT,
-      MenuType.DESSERTS,
-    ]);
-    expect(tableCreator.dessertEmoji).to.equal(expectedDessertEmoji);
-    expect(tableCreator.friesEmoji).to.equal(expectedFriesEmoji);
-    expect(tableCreator.hamburgerEmoji).to.equal(expectedHamburgerEmoji);
-    expect(tableCreator.herbEmoji).to.equal(expectedHerbEmoji);
-    expect(tableCreator.tomatoEmoji).to.equal(expectedTomatoEmoji);
-    expect(tableCreator.beerEmoji).to.equal(expectedBeerEmoji);
-    expect(tableCreator.pizzaEmoji).to.equal(expectedPizzaEmoji);
-  });
-
   it('tests header generation', function() {
     const expectedHeader = ['jae (bradley)', expectedPriceEmoji, expectedMemoEmoji];
     expect(tableCreator.generateHeader('jae', 'bradley')).to.eql(expectedHeader);
@@ -75,7 +53,7 @@ describe('Menu table creator', function() {
 
   it('tests menu type header generation', function() {
     const expectedDessertsHeader = [{content: `${dessertsHeader} ${expectedDessertEmoji}`, colSpan: 3}];
-    const expectedSidesAndDessertHeader = [{content: `${sidesAndDessertHeader} ${expectedDessertEmoji} ${expectedFriesEmoji}`, colSpan: 3}];
+    const expectedSidesAndDessertHeader = [{content: `${sidesAndDessertHeader} ${expectedFriesEmoji} ${expectedDessertEmoji}`, colSpan: 3}];
     const expectedSidesHeader = [{content: `${sidesHeader} ${expectedFriesEmoji}`, colSpan: 3}];
     const expectedSaladsHeader = [{content: `${saladsHeader} ${expectedHerbEmoji} ${expectedTomatoEmoji}`, colSpan: 3}];
     const expectedSandwichesHeader = [{content: `${sandwichesHeader} ${expectedHamburgerEmoji}`, colSpan: 3}];
