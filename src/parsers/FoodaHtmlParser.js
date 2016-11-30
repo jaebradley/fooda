@@ -49,10 +49,16 @@ export default class FoodaHtmlParser {
   }
 
   static getLabels($, lookupKey) {
-    return List($(lookupKey).each(function(index, element) {
+    let labels = List();
+    $(lookupKey).each(function(index, element) {
       let text = $(element).text().trim();
-      return (text !== '') ? text.split('\n').map(value => value.trim()) : List();
-    }));
+      if (text !== '') {
+        labels = labels.push(text.split('\n').map(value => value.trim()));
+      } else {
+        labels = labels.push([]);
+      }
+    });
+    return labels;
   }
 
   static generateDate($) {
@@ -67,7 +73,7 @@ export default class FoodaHtmlParser {
     let categoriesMap = FoodaHtmlParser.getCategoriesMapping();
     let menu = Map({vendor: vendor, date: FoodaHtmlParser.generateDate($)});
     let keys = List(categoriesMap.keys());
-    keys.forEach(key => menu.set(key, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
+    keys.forEach(key => menu = menu.set(key, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
     return new Menu(menu.toJS());
   }
 
@@ -83,12 +89,12 @@ export default class FoodaHtmlParser {
     let labels = FoodaHtmlParser.getLabels($, labelsParseValue);
 
     let items = List();
-    for (let index = 0; index < names.length; index++) {
-      items.push(new Item({
-        name: names[index],
-        price: prices[index],
-        description: descriptions[index],
-        labels: labels[index],
+    for (let index = 0; index < names.size; index++) {
+      items = items.push(new Item({
+        name: names.get(index),
+        price: prices.get(index),
+        description: descriptions.get(index),
+        labels: labels.get(index),
       }));
     }
     return items;

@@ -16,38 +16,38 @@ describe('Fooda Html Parser', function() {
   const $ = cheerio.load(sampleHtml);
   const testLookupKey = 'div[class=item--no-photo][data-vendor_name="Curry House"][data-category="Entrees"] div[class=item__name]';
 
-  const curryHouseEntrees = [
+  const curryHouseEntrees = List.of(
     new Item({
       name: 'Saag Paneer (V)',
       price: '$7.48',
       description: 'Spinach and homemade cottage cheese, prepared with a touch of onions and fresh tomatoes; served with long-grain basmati rice',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
     new Item({
       name: 'Chana Masala (V)',
       price: '$7.48',
       description: 'Garbanzo beans sautéed with onions, fresh tomatoes, and spices; served with long-grain basmati rice',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
     new Item({
       name: 'Vegetable Korma (V)',
       price: '$7.48',
       description: 'Garden vegetables in a creamy sauce with cashew nuts and raisins; served with long-grain basmati rice',
-      labels: ['Vegetarian', 'Gluten-Free'],
+      labels: List.of('Vegetarian', 'Gluten-Free'),
     }),
     new Item({
       name: 'Chicken Tikka Masala',
       price: '$8.41',
       description: 'Roasted boneless chicken cooked in a creamy tomato sauce with exotic spices served with long-grain basmati rice',
-      labels: ['Gluten-Free'],
+      labels: List.of('Gluten-Free'),
     }),
     new Item({
       name: "Chef's Special Entrée",
       price: '$8.41',
       description: 'Rotating selection of classic Indian specialties served with long-grain basmati rice',
-      labels: ['Gluten-Free'],
+      labels: List.of('Gluten-Free'),
     }),
-  ];
+  );
 
   const curryHouseCombinations = [
     new Item({
@@ -191,8 +191,7 @@ describe('Fooda Html Parser', function() {
 
   it('test generate items', function() {
     let items = FoodaHtmlParser.generateItems($, 'Curry House', 'Entrees');
-    console.log(items);
-    expect(items).to.eql(curryHouseEntrees);
+    expect(items.toJS()).to.eql(curryHouseEntrees.toJS());
   });
 
   it('test generate menu', function() {
