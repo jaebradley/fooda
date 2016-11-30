@@ -49,13 +49,10 @@ export default class FoodaHtmlParser {
   }
 
   static getLabels($, lookupKey) {
-    let values = List();
-    $(lookupKey).each(function(index, element) {
-      let text = $(this).text().trim();
-      let value = (text !== '') ? text.split('\n').map(value => value.trim()) : List();
-      values.push(value);
-    });
-    return values;
+    return List($(lookupKey).each(function(index, element) {
+      let text = $(element).text().trim();
+      return (text !== '') ? text.split('\n').map(value => value.trim()) : List();
+    }));
   }
 
   static generateDate($) {

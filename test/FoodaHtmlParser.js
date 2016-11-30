@@ -190,7 +190,8 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test generate items', function() {
-    const items = FoodaHtmlParser.generateItems($, 'Curry House', 'Entrees');
+    let items = FoodaHtmlParser.generateItems($, 'Curry House', 'Entrees');
+    console.log(items);
     expect(items).to.eql(curryHouseEntrees);
   });
 
