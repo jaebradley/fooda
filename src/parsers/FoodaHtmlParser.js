@@ -71,8 +71,8 @@ export default class FoodaHtmlParser {
     let categoriesMap = FoodaHtmlParser.getCategoriesMapping();
     let menu = Map({vendor: vendor, date: FoodaHtmlParser.generateDate($)});
     let keys = List(categoriesMap.keys());
-    keys.forEach(key => menu = menu.set(key, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
-    return new Menu(menu.toJS());
+    keys.forEach(key => menu = menu.set(key.name, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
+    return new Menu(menu);
   }
 
   static generateItems($, vendor, category) {
@@ -85,7 +85,6 @@ export default class FoodaHtmlParser {
     let prices = FoodaHtmlParser.getTextValues($, priceParseValue);
     let descriptions = FoodaHtmlParser.getTextValues($, descriptionParseValue);
     let labels = FoodaHtmlParser.getLabels($, labelsParseValue);
-
     let items = List();
     for (let index = 0; index < names.size; index++) {
       items = items.push(new Item({

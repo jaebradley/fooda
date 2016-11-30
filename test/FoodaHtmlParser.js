@@ -149,23 +149,23 @@ describe('Fooda Html Parser', function() {
   );
 
   let expectedCurryHouseMenuParameters = {vendor: 'Curry House', 'date': 'popup today, May 27'};
-  expectedCurryHouseMenuParameters[MenuType.COMBINATIONS] = curryHouseCombinations;
-  expectedCurryHouseMenuParameters[MenuType.DESSERTS] = curryHouseDesserts;
-  expectedCurryHouseMenuParameters[MenuType.ENTREES] = curryHouseEntrees;
-  expectedCurryHouseMenuParameters[MenuType.SANDWICHES] = List.of();
-  expectedCurryHouseMenuParameters[MenuType.SALADS] = List.of();
-  expectedCurryHouseMenuParameters[MenuType.SIDES] = curryHouseSides;
-  expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT] = List.of();
+  expectedCurryHouseMenuParameters[MenuType.COMBINATIONS.name] = curryHouseCombinations;
+  expectedCurryHouseMenuParameters[MenuType.DESSERTS.name] = curryHouseDesserts;
+  expectedCurryHouseMenuParameters[MenuType.ENTREES.name] = curryHouseEntrees;
+  expectedCurryHouseMenuParameters[MenuType.SANDWICHES.name] = List.of();
+  expectedCurryHouseMenuParameters[MenuType.SALADS.name] = List.of();
+  expectedCurryHouseMenuParameters[MenuType.SIDES.name] = curryHouseSides;
+  expectedCurryHouseMenuParameters[MenuType.SIDES_AND_DESSERT.name] = List.of();
   let expectedCurryHouseMenu = new Menu(expectedCurryHouseMenuParameters);
 
   let expectedMexicaliMenuParameters = {vendor: 'MexiCali Burrito Co.' , 'date': 'popup today, May 27'};
-  expectedMexicaliMenuParameters[MenuType.COMBINATIONS] = List.of();
-  expectedMexicaliMenuParameters[MenuType.DESSERTS] = mexicaliDesserts;
-  expectedMexicaliMenuParameters[MenuType.ENTREES] = mexicaliEntrees;
-  expectedMexicaliMenuParameters[MenuType.SANDWICHES] = List.of();
-  expectedMexicaliMenuParameters[MenuType.SALADS] = mexicaliSalads;
-  expectedMexicaliMenuParameters[MenuType.SIDES] = List.of();
-  expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT] = mexicaliSidesAndDessert;
+  expectedMexicaliMenuParameters[MenuType.COMBINATIONS.name] = List.of();
+  expectedMexicaliMenuParameters[MenuType.DESSERTS.name] = mexicaliDesserts;
+  expectedMexicaliMenuParameters[MenuType.ENTREES.name] = mexicaliEntrees;
+  expectedMexicaliMenuParameters[MenuType.SANDWICHES.name] = List.of();
+  expectedMexicaliMenuParameters[MenuType.SALADS.name] = mexicaliSalads;
+  expectedMexicaliMenuParameters[MenuType.SIDES.name] = List.of();
+  expectedMexicaliMenuParameters[MenuType.SIDES_AND_DESSERT.name] = mexicaliSidesAndDessert;
   let expectedMexicaliMenu = new Menu(expectedMexicaliMenuParameters);
 
   const expectedMenus = List.of(expectedCurryHouseMenu, expectedMexicaliMenu);
