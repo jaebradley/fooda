@@ -1,6 +1,7 @@
 'use es6';
 
 import {expect} from 'chai';
+import {List} from 'immutable';
 import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
@@ -177,15 +178,14 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test get text values', function() {
-    let expectedEntrees = [
+    let expectedEntrees = List.of(
       'Saag Paneer (V)',
       'Chana Masala (V)',
       'Vegetable Korma (V)',
       'Chicken Tikka Masala',
       "Chef's Special Entrée",
-    ];
+    );
     let entrees = FoodaHtmlParser.getTextValues($, testLookupKey);
-    console.log(entrees);
     expect(entrees).to.eql(expectedEntrees);
   });
 
