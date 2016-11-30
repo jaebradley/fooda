@@ -45,13 +45,7 @@ export default class FoodaHtmlParser {
   }
 
   static getTextValues($, lookupKey) {
-    let values = List();
-    $(lookupKey).each(function(index, element) {
-      values.push($(this).text()
-                         .trim()
-                         .replace(/(\r\n|\n|\r)/gm,'\n'));
-    });
-    return values;
+    return List($(lookupKey).map((index, element) => $(this).text().trim().replace(/(\r\n|\n|\r)/gm,'\n'))));
   }
 
   static getLabels($, lookupKey) {

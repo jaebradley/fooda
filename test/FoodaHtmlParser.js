@@ -177,14 +177,15 @@ describe('Fooda Html Parser', function() {
   });
 
   it('test get text values', function() {
-    const expectedEntrees = [
+    let expectedEntrees = [
       'Saag Paneer (V)',
       'Chana Masala (V)',
       'Vegetable Korma (V)',
       'Chicken Tikka Masala',
       "Chef's Special Entrée",
     ];
-    const entrees = FoodaHtmlParser.getTextValues($, testLookupKey);
+    let entrees = FoodaHtmlParser.getTextValues($, testLookupKey);
+    console.log(entrees);
     expect(entrees).to.eql(expectedEntrees);
   });
 
