@@ -4,17 +4,14 @@ import rp from 'request-promise';
 import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
 
 export default class FoodaClient {
-  constructor() {
-    this.parser = new FoodaHtmlParser();
-  }
 
   static generateUrl(location) {
     return `${FoodaClient.getBaseUrl()}${location.endpoint.value}`;
   }
 
-  fetch(location) {
+  static fetch(location) {
     return rp( { uri: FoodaClient.generateUrl(location) } )
-      .then(html => this.parser.parse(html))
+      .then(html => FoodaHtmlParser.parse(html))
       .catch(err => console.log(err));
   }
 

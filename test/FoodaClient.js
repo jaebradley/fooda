@@ -7,20 +7,20 @@ import Menu from '../src/data/Menu';
 import Item from '../src/data/Item';
 import MenuType from '../src/data/MenuType';
 import FoodaHtmlParser from '../src/parsers/FoodaHtmlParser';
+import Location from '../src/data/Location';
 
 describe('Fooda client', function() {
-  const client = new FoodaClient();
 
-  it('tests constructor', function() {
-    expect(client.baseUrl).to.equal('https://app.fooda.com');
-    expect(client.parser).to.be.an.instanceOf(FoodaHtmlParser);
+  it('tests base url', function() {
+    expect(FoodaClient.getBaseUrl()).to.equal('https://app.fooda.com');
   });
 
   it('tests url generator', function() {
-    expect(client.generateUrl('jaebaebae')).to.equal('https://app.fooda.com/jaebaebae');
+    expect(FoodaClient.generateUrl(Location.DAVENPORT)).to.equal('https://app.fooda.com/accounts/1729/popup/menu_page/P0069614/items');
   });
 
   it('tests data fetching', function() {
-    // hmmm is there a way to fix the information that's returned?
+    return FoodaClient.fetch(Location.DAVENPORT)
+                      .then(response => console.log(response));
   })
 })
