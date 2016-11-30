@@ -4,22 +4,20 @@ import emoji from 'node-emoji';
 
 import FoodaClient from '../clients/FoodaClient';
 import MenuTableCreator from '../tables/MenuTableCreator';
-import LocationOption from '../data/LocationOption';
-import LocationValue from '../data/LocationValue';
+import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
+import Location from '../data/Location';
 
 export default class MenuCommand {
-  constructor() {
-    this.client = new FoodaClient();
-    this.menuTableCreator = new MenuTableCreator();
-    this.sadEmoji = emoji.get('cry');
+  static getSadEmoji() {
+    return emoji.get('cry');
   }
 
-  run(location) {
+  static run(location) {
     let locationValue;
     switch (location.toUpperCase()) {
-      case LocationOption.HUBSPOT:
-      case LocationOption.DAVENPORT:
-        locationValue = LocationValue.DAVENPORT;
+      case Location.HUBSPOT.name:
+      case Location.DAVENPORT.name:
+        locationValue = Location.DAVENPORT;
         break;
 
       default:
@@ -28,15 +26,15 @@ export default class MenuCommand {
     }
 
     if (locationValue !== null) {
-      this.client
-          .fetch(locationValue)
-          .then((function(menus) {
-            if (menus.length > 0) {
-              menus.map(menu => console.log(this.menuTableCreator.create(menu)));
-            } else {
-              console.log(`No Fooda...sorry ${this.sadEmoji} ${this.sadEmoji} ${this.sadEmoji}`);
-            }
-          }).bind(this));
+      return FoodaClient.fetch(locationValue)
+                        .then(response => FoodaHtmlParser.parse(response))
+                        .then((function(menus) {
+                          if (menus.size > 0) {
+                            menus.map(menu => console.log(MenuTableCreator.create(menu)));
+                          } else {
+                            console.log(`No Fooda...sorry ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()}`);
+                          }
+                        }).bind(this));
     }
   }
 }

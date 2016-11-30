@@ -1,23 +1,21 @@
 'use es6';
 
 import rp from 'request-promise';
-import Q from 'q';
 import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
 
 export default class FoodaClient {
-  constructor() {
-    this.baseUrl = 'https://app.fooda.com';
-    this.parser = new FoodaHtmlParser();
+
+  static generateUrl(location) {
+    return `${FoodaClient.getBaseUrl()}${location.endpoint.value}`;
   }
 
-  generateUrl(location) {
-    return `${this.baseUrl}/${location}`;
-  }
-
-  fetch(location) {
-    const url = this.generateUrl(location);
-    return rp( { uri: url } )
-      .then(html => this.parser.parse(html))
+  static fetch(location) {
+    return rp( { uri: FoodaClient.generateUrl(location) } )
+      .then(html => html)
       .catch(err => console.log(err));
+  }
+
+  static getBaseUrl() {
+    return 'https://app.fooda.com';
   }
 }

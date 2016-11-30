@@ -1,91 +1,97 @@
 'use es6';
 
 import cheerio from 'cheerio';
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
 
 import Item from '../data/Item';
 import Menu from '../data/Menu';
 import MenuType from '../data/MenuType';
 
 export default class FoodaHtmlParser {
-  constructor() {
-    this.categoriesMap = {};
-    this.categoriesMap[MenuType.COMBINATIONS] = 'Combinations';
-    this.categoriesMap[MenuType.DESSERTS] = 'Desserts';
-    this.categoriesMap[MenuType.ENTREES] = 'Entrees';
-    this.categoriesMap[MenuType.SANDWICHES] = 'Sandwiches';
-    this.categoriesMap[MenuType.SALADS] = 'Salads';
-    this.categoriesMap[MenuType.SIDES] = 'Sides';
-    this.categoriesMap[MenuType.SIDES_AND_DESSERT] = 'Sides & Dessert';
-    this.nameHtmlElement = 'div[class=item__name]';
-    this.priceHtmlElement = 'div[class=item__price]';
-    this.descriptionHtmlElement = 'div[class=item__desc__text]';
-    this.labelsHtmlElement = 'div[class=item__labels]';
+  static getCategoriesMapping() {
+    let map = Map();
+    map = map.set(MenuType.COMBINATIONS, 'Combinations');
+    map = map.set(MenuType.DESSERTS, 'Desserts');
+    map = map.set(MenuType.ENTREES, 'Entrees');
+    map = map.set(MenuType.SANDWICHES, 'Sandwiches');
+    map = map.set(MenuType.SALADS, 'Salads');
+    map = map.set(MenuType.SIDES, 'Sides');
+    map = map.set(MenuType.SIDES_AND_DESSERT, 'Sides & Dessert');
+    return map;
   }
 
-
-  parse(html) {
-    const menus = [];
-    const $ = cheerio.load(html);
-
-    const vendors = this.generateVendors($);
-    vendors.map(vendor => menus.push(this.generateMenu($, vendor)));
-    return menus;
+  static getNameElementIdentifer() {
+    return 'div[class=item__name]';
   }
 
-  getTextValues($, lookupKey) {
-    const values = [];
+  static getPriceElementIdentifer() {
+    return 'div[class=item__price]';
+  }
+
+  static getDescriptionElementIdentifer() {
+    return 'div[class=item__desc__text]';
+  }
+
+  static getLabelsElementIdentifer() {
+    return 'div[class=item__labels]';
+  }
+
+  static parse(html) {
+    let $ = cheerio.load(html);
+    return List(FoodaHtmlParser.generateVendors($)
+                                  .map(vendor => FoodaHtmlParser.generateMenu($, vendor)));
+  }
+
+  static getTextValues($, lookupKey) {
+    return List($(lookupKey).map((index, element) => $(element).text().trim().replace(/(\r\n|\n|\r)/gm,'\n')));
+  }
+
+  static getLabels($, lookupKey) {
+    let labels = List();
     $(lookupKey).each(function(index, element) {
-      values.push($(this).text().trim().replace(/(\r\n|\n|\r)/gm,'\n'));
-    });
-    return values;
-  }
-
-  getLabels($, lookupKey) {
-    const values = [];
-    $(lookupKey).each(function(index, element) {
-      if ($(this).text().trim() !== '') {
-        values.push($(this).text().trim().split('\n').map(value => value.trim()));
+      let text = $(element).text().trim();
+      if (text !== '') {
+        labels = labels.push(text.split('\n').map(value => value.trim()));
       } else {
-        values.push([]);
+        labels = labels.push([]);
       }
     });
-    return values;
+    return labels;
   }
 
-  generateDate($) {
+  static generateDate($) {
     return $('div[class=secondary-bar__label]').text().trim();
   }
 
-  generateVendors($) {
-    const vendors = [];
-    $('div[class=restaurant-banner]').map((index, element) => (vendors.push(element.attribs['data-vendor_name'])));
-    return vendors;
+  static generateVendors($) {
+    return List($('div[class=restaurant-banner]').map((index, element) => element.attribs['data-vendor_name']));
   }
 
-  generateMenu($, vendor) {
-    const menu = {vendor: vendor, date: this.generateDate($)};
-    Object.keys(this.categoriesMap).map(category => (menu[category] = (this.generateItems($, vendor, this.categoriesMap[category]))));
+  static generateMenu($, vendor) {
+    let categoriesMap = FoodaHtmlParser.getCategoriesMapping();
+    let menu = Map({vendor: vendor, date: FoodaHtmlParser.generateDate($)});
+    let keys = List(categoriesMap.keys());
+    keys.forEach(key => menu = menu.set(key.name, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
     return new Menu(menu);
   }
 
-  generateItems($, vendor, category) {
-    const baseParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]`;
-    const nameParseValue = `${baseParseValue} ${this.nameHtmlElement}`;
-    const priceParseValue = `${baseParseValue} ${this.priceHtmlElement}`;
-    const descriptionParseValue = `${baseParseValue} ${this.descriptionHtmlElement}`;
-    const labelsParseValue = `${baseParseValue} ${this.labelsHtmlElement}`;
-    const names = this.getTextValues($, nameParseValue);
-    const prices = this.getTextValues($, priceParseValue);
-    const descriptions = this.getTextValues($, descriptionParseValue);
-    const labels = this.getLabels($, labelsParseValue);
-    const items = [];
-    for (let index = 0; index < names.length; index++) {
-      items.push(new Item({
-        name: names[index],
-        price: prices[index],
-        description: descriptions[index],
-        labels: labels[index],
+  static generateItems($, vendor, category) {
+    let baseParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]`;
+    let nameParseValue = `${baseParseValue} ${FoodaHtmlParser.getNameElementIdentifer()}`;
+    let priceParseValue = `${baseParseValue} ${FoodaHtmlParser.getPriceElementIdentifer()}`;
+    let descriptionParseValue = `${baseParseValue} ${FoodaHtmlParser.getDescriptionElementIdentifer()}`;
+    let labelsParseValue = `${baseParseValue} ${FoodaHtmlParser.getLabelsElementIdentifer()}`;
+    let names = FoodaHtmlParser.getTextValues($, nameParseValue);
+    let prices = FoodaHtmlParser.getTextValues($, priceParseValue);
+    let descriptions = FoodaHtmlParser.getTextValues($, descriptionParseValue);
+    let labels = FoodaHtmlParser.getLabels($, labelsParseValue);
+    let items = List();
+    for (let index = 0; index < names.size; index++) {
+      items = items.push(new Item({
+        name: names.get(index),
+        price: prices.get(index),
+        description: descriptions.get(index),
+        labels: labels.get(index),
       }));
     }
     return items;
