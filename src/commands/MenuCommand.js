@@ -1,15 +1,18 @@
 'use es6';
 
 import emoji from 'node-emoji';
+import {List} from 'immutable';
 
-import FoodaClient from '../clients/FoodaClient';
-import MenuTableCreator from '../tables/MenuTableCreator';
-import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
+import MenuTablesCreator from '../tables/MenuTablesCreator';
 import Location from '../data/Location';
 
 export default class MenuCommand {
   static getSadEmoji() {
     return emoji.get('cry');
+  }
+
+  static getErrorMessage() {
+    return `No Fooda...sorry ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()}`;
   }
 
   static run(location) {
@@ -26,15 +29,11 @@ export default class MenuCommand {
     }
 
     if (locationValue !== null) {
-      return FoodaClient.fetch(locationValue)
-                        .then(response => FoodaHtmlParser.parse(response))
-                        .then((function(menus) {
-                          if (menus.size > 0) {
-                            menus.map(menu => console.log(MenuTableCreator.create(menu)));
-                          } else {
-                            console.log(`No Fooda...sorry ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()} ${MenuCommand.getSadEmoji()}`);
-                          }
-                        }).bind(this));
+      try {
+        return MenuTablesCreator.create(locationValue);
+      } catch (err) {
+        console.log(MenuCommand.getErrorMessage());
+      }
     }
   }
 }

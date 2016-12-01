@@ -7,7 +7,7 @@ import Item from '../data/Item';
 import Menu from '../data/Menu';
 import MenuType from '../data/MenuType';
 
-export default class FoodaHtmlParser {
+export default class MenuParser {
   static getCategoriesMapping() {
     let map = Map();
     map = map.set(MenuType.COMBINATIONS, 'Combinations');
@@ -38,8 +38,8 @@ export default class FoodaHtmlParser {
 
   static parse(html) {
     let $ = cheerio.load(html);
-    return List(FoodaHtmlParser.generateVendors($)
-                                  .map(vendor => FoodaHtmlParser.generateMenu($, vendor)));
+    return List(MenuParser.generateVendors($)
+                               .map(vendor => MenuParser.generateMenu($, vendor)));
   }
 
   static getTextValues($, lookupKey) {
@@ -68,23 +68,23 @@ export default class FoodaHtmlParser {
   }
 
   static generateMenu($, vendor) {
-    let categoriesMap = FoodaHtmlParser.getCategoriesMapping();
-    let menu = Map({vendor: vendor, date: FoodaHtmlParser.generateDate($)});
+    let categoriesMap = MenuParser.getCategoriesMapping();
+    let menu = Map({vendor: vendor, date: MenuParser.generateDate($)});
     let keys = List(categoriesMap.keys());
-    keys.forEach(key => menu = menu.set(key.name, FoodaHtmlParser.generateItems($, vendor, categoriesMap.get(key))));
+    keys.forEach(key => menu = menu.set(key.name, MenuParser.generateItems($, vendor, categoriesMap.get(key))));
     return new Menu(menu);
   }
 
   static generateItems($, vendor, category) {
     let baseParseValue = `div[class=item--no-photo][data-vendor_name="${vendor}"][data-category="${category}"]`;
-    let nameParseValue = `${baseParseValue} ${FoodaHtmlParser.getNameElementIdentifer()}`;
-    let priceParseValue = `${baseParseValue} ${FoodaHtmlParser.getPriceElementIdentifer()}`;
-    let descriptionParseValue = `${baseParseValue} ${FoodaHtmlParser.getDescriptionElementIdentifer()}`;
-    let labelsParseValue = `${baseParseValue} ${FoodaHtmlParser.getLabelsElementIdentifer()}`;
-    let names = FoodaHtmlParser.getTextValues($, nameParseValue);
-    let prices = FoodaHtmlParser.getTextValues($, priceParseValue);
-    let descriptions = FoodaHtmlParser.getTextValues($, descriptionParseValue);
-    let labels = FoodaHtmlParser.getLabels($, labelsParseValue);
+    let nameParseValue = `${baseParseValue} ${MenuParser.getNameElementIdentifer()}`;
+    let priceParseValue = `${baseParseValue} ${MenuParser.getPriceElementIdentifer()}`;
+    let descriptionParseValue = `${baseParseValue} ${MenuParser.getDescriptionElementIdentifer()}`;
+    let labelsParseValue = `${baseParseValue} ${MenuParser.getLabelsElementIdentifer()}`;
+    let names = MenuParser.getTextValues($, nameParseValue);
+    let prices = MenuParser.getTextValues($, priceParseValue);
+    let descriptions = MenuParser.getTextValues($, descriptionParseValue);
+    let labels = MenuParser.getLabels($, labelsParseValue);
     let items = List();
     for (let index = 0; index < names.size; index++) {
       items = items.push(new Item({

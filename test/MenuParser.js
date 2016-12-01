@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 
-import FoodaHtmlParser from '../src/parsers/FoodaHtmlParser';
+import MenuParser from '../src/parsers/MenuParser';
 import MenuType from '../src/data/MenuType';
 import Item from '../src/data/Item';
 import Menu from '../src/data/Menu';
@@ -171,7 +171,7 @@ describe('Fooda Html Parser', function() {
   const expectedMenus = List.of(expectedCurryHouseMenu, expectedMexicaliMenu);
 
   it('test vendor generation', function() {
-    let vendors = FoodaHtmlParser.generateVendors($);
+    let vendors = MenuParser.generateVendors($);
     expect(vendors.size).to.equal(2);
     expect(vendors.get(0)).to.equal('Curry House');
     expect(vendors.get(1)).to.equal('MexiCali Burrito Co.');
@@ -185,20 +185,20 @@ describe('Fooda Html Parser', function() {
       'Chicken Tikka Masala',
       "Chef's Special Entrée",
     );
-    let entrees = FoodaHtmlParser.getTextValues($, testLookupKey);
+    let entrees = MenuParser.getTextValues($, testLookupKey);
     expect(entrees).to.eql(expectedEntrees);
   });
 
   it('test generate items', function() {
-    let items = FoodaHtmlParser.generateItems($, 'Curry House', 'Entrees');
+    let items = MenuParser.generateItems($, 'Curry House', 'Entrees');
     expect(items.toJS()).to.eql(curryHouseEntrees.toJS());
   });
 
   it('test generate menu', function() {
-    expect(FoodaHtmlParser.generateMenu($, 'Curry House').toJS()).to.eql(expectedCurryHouseMenu.toJS());
+    expect(MenuParser.generateMenu($, 'Curry House').toJS()).to.eql(expectedCurryHouseMenu.toJS());
   });
 
   it('test parse', function() {
-    expect(FoodaHtmlParser.parse(sampleHtml).toJS()).to.eql(expectedMenus.toJS());
+    expect(MenuParser.parse(sampleHtml).toJS()).to.eql(expectedMenus.toJS());
   });
 })
