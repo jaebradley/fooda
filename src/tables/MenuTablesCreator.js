@@ -4,7 +4,7 @@ import rp from 'request-promise';
 
 import FoodaClient from '../clients/FoodaClient';
 import MenuTableCreator from '../tables/MenuTableCreator';
-import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
+import MenuParser from '../parsers/MenuParser';
 import RestaurantsUrlParser from '../parsers/RestaurantsUrlParser';
 
 export default class MenuTablesCreator {
@@ -23,7 +23,7 @@ export default class MenuTablesCreator {
     return rp( {uri: urls.get(0)} )
       .then(html => html)
       .catch(err => console.log(err))
-      .then(response => FoodaHtmlParser.parse(response))
+      .then(response => MenuParser.parse(response))
       .then(menus => MenuTablesCreator.logMenus(menus))
       .done();
   }

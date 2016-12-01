@@ -1,7 +1,7 @@
 'use es6';
 
 import rp from 'request-promise';
-import FoodaHtmlParser from '../parsers/FoodaHtmlParser';
+import MenuParser from '../parsers/MenuParser';
 
 export default class FoodaClient {
 
