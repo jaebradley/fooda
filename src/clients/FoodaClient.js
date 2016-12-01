@@ -10,12 +10,20 @@ export default class FoodaClient {
   }
 
   static fetch(location) {
-    return rp( { uri: FoodaClient.generateUrl(location) } )
+    let j = rp.jar();
+    let url = FoodaClient.generateUrl(location);
+    let cookie = rp.cookie(FoodaClient.generateCookie(location));
+    j.setCookie(cookie, url);
+    return rp( { uri: url, simple: true, jar: j } )
       .then(html => html)
       .catch(err => console.log(err));
   }
 
   static getBaseUrl() {
     return 'https://app.fooda.com';
+  }
+
+  static generateCookie(location) {
+    return `%7B%22entity%22%3A%22account%22%2C%22id%22%3A%22${location.endpoint.cookieValue}%22%7D`;
   }
 }
