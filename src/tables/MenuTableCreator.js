@@ -1,7 +1,7 @@
 'use es6';
 
 import {List} from 'immutable';
-import Table from 'cli-table2';
+import Table from 'cli-table3';
 import emoji from 'node-emoji';
 import colors from 'colors';
 
